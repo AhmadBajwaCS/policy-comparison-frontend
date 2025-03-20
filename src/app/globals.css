@@ -1,26 +1,190 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #333;
+  font-family: 'Inter', sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-bottom: 1rem;
+  color: black;
+}
+
+nav .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.symbol {
+  height: 40px;
+  padding-right: 1vw;
+  vertical-align: middle;
+  padding-bottom: 0.5vw;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+section {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+
+.policy-comparison, .chatbot, .results {
+  padding-bottom: 2rem;
+}
+
+.page-title {
+  text-align: center;
+  color: black;
+  padding-bottom: 1rem;
+}
+
+
+footer {
+  text-align: center;
+  color: black;
+  bottom: 0;
+  width: 100%;
+}
+
+body.dark-mode {
+  background-color: #333;
+  color: #f4f4f4;
+}
+
+nav.dark-mode {
+  background-color: #444;
+}
+
+footer.dark-mode {
+  background-color: #444;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 90vw;
+  margin: 0 auto;
+  padding-bottom: 0.5rem;
+}
+
+.container h2 {
+  font-size: 20px;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.container p {
+  color: white;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.section-header {
+  background-color: #2c2c2c;
+  border-radius: 30px 30px 0 0;
+  padding: 1.2rem 1.5rem;
+}
+
+#sources {
+  font-size: 14px;
+}
+
+#chatbot-input {
+  width: 95%;
+  margin: auto;
+  align-self: center;
+  border-radius: 10px;
+  border-color: #ccc;
+  padding: 5px;
+}
+
+.chat-intro {
+  text-align: center;
+  padding: 13vh;
+}
+
+.input-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.selection {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem 1rem;
+}
+
+.selection label {
+  font-weight: bold;
+  color: #333;
+}
+
+.selection select {
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.selection button {
+  padding: 0.75rem;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+.summary-text {
+  padding: 1.5rem 1.5rem 1rem;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.sources-list {
+  list-style-type: none;
+}
+
+.source-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  margin-bottom: 5px;
+}
+
+.source-item a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.source-item a:hover {
+  text-decoration: underline;
 }
