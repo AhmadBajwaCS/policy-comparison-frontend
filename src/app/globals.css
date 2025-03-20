@@ -1,7 +1,9 @@
+/* Default styles (light mode) */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding-left: 5rem;
+  padding-right: 5rem;  
   background-color: #fff;
   color: #333;
   font-family: 'Inter', sans-serif;
@@ -10,16 +12,53 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  padding-top: 3rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding-top: 2rem;
   padding-bottom: 1rem;
   color: black;
+  align-items: center;
+}
+
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 5rem 0 2rem 0;
+  font-size: 0.9rem;
+  color: black;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-left {
+  max-width: 50%;
+}
+
+.footer-left p {
+  margin: 0.3rem 0;
+  padding-bottom: 0.5rem;
+}
+
+.footer-right {
+  text-align: right;
+  max-width: 40%;
+}
+
+.footer-right p {
+  font-size: small;
+  font-style: italic;
+  color: #2c2c2c;
+}
+
+.footer-left h4 {
+  margin-bottom: 0 !important;
 }
 
 nav .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  text-decoration: none;
+  color: black;
 }
 
 .symbol {
@@ -33,16 +72,12 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 nav ul li a {
   color: black;
   text-decoration: none;
-}
-
-section {
-  padding-left: 5rem;
-  padding-right: 5rem;
 }
 
 
@@ -57,31 +92,12 @@ section {
 }
 
 
-footer {
-  text-align: center;
-  color: black;
-  bottom: 0;
-  width: 100%;
-}
-
-body.dark-mode {
-  background-color: #333;
-  color: #f4f4f4;
-}
-
-nav.dark-mode {
-  background-color: #444;
-}
-
-footer.dark-mode {
-  background-color: #444;
-}
-
 .container {
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 32px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 90vw;
+  min-height: 15vh;
   margin: 0 auto;
   padding-bottom: 0.5rem;
 }
@@ -136,11 +152,6 @@ footer.dark-mode {
   padding: 1.2rem 1.5rem 1rem;
 }
 
-.selection label {
-  font-weight: bold;
-  color: #333;
-}
-
 .selection select {
   padding: 1%;
   border: 1px solid #ccc;
@@ -155,9 +166,9 @@ footer.dark-mode {
   border: none;
   border-radius: 10px;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
 }
-
 
 .summary-text {
   padding: 1.5rem 1.5rem 1rem;
@@ -188,3 +199,79 @@ footer.dark-mode {
 .source-item a:hover {
   text-decoration: underline;
 }
+
+.theme-toggle {
+  width: 26px;
+  height: 26px;
+  padding-top: 0.3vw;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: black;
+  color: #fff;
+}
+
+body.dark-mode nav {
+  background-color: black;
+  color: #fff;
+}
+
+body.dark-mode nav .logo {
+  color: white;
+}
+
+body.dark-mode footer {
+  color: white;
+}
+
+body.dark-mode .section-header {
+  background-color: #DEDEDE;
+}
+
+body.dark-mode nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+body.dark-mode .page-title {
+  color: white;
+}
+
+body.dark-mode .container h2 {
+  color: black;
+}
+
+body.dark-mode .container p {
+  color: black;
+}
+
+body.dark-mode .container {
+  background-color: black;
+  border: 1px solid #DEDEDE;
+}
+
+body.dark-mode .selection select {
+  border: 1px solid #A6A6A6;
+  background-color: black;
+  color: #dedede;
+}
+
+body.dark-mode .selection button {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .footer-right p {
+  color: #dedede;
+}
+
+
+
+
