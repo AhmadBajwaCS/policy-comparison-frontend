@@ -5,12 +5,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from "./context/ThemeContext";
 
-const capitalizeWords = (str) => {
-  return str
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-};
+const capitalizeWords = (str: string) => {
+    return str
+      .split(' ')
+      .map(word => 
+        word
+          .split('-')
+          .map(subword => subword.charAt(0).toUpperCase() + subword.slice(1))
+          .join('-')
+      )
+      .join(' ');
+  };
 
 const states = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",

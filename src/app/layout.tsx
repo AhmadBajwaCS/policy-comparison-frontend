@@ -9,7 +9,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 const inter = Inter({ subsets: ["latin"] });
 
 function Navbar() {
-    const { theme, toggleTheme } = useTheme(); // Get theme and toggle function
+    const { theme, toggleTheme } = useTheme();
   
     return (
       <nav>
