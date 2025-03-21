@@ -35,13 +35,15 @@ export default function TestPage() {
     }
 
     try {
-      const res = await fetch("/api/test", {
+      const res = await fetch("http://localhost:5000/api/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ policy, state }),
       });
+
+      if (!res.ok) throw new Error("Failed to fetch data");
 
       const data = await res.json();
       setResponse(JSON.stringify(data, null, 2));
@@ -56,7 +58,7 @@ export default function TestPage() {
 
       <label>
         <select value={policy} onChange={(e) => setPolicy(e.target.value)}>
-          <option value="">Policy</option>
+          <option value="">Select Policy</option>
           {policies.map((p) => (
             <option key={p} value={p}>{p}</option>
           ))}
@@ -65,7 +67,7 @@ export default function TestPage() {
 
       <label>
         <select value={state} onChange={(e) => setState(e.target.value)}>
-          <option value="">State</option>
+          <option value="">Select State</option>
           {states.map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
