@@ -25,22 +25,23 @@ const states = [
 
 export default function TestPage() {
   const [policy, setPolicy] = useState("");
-  const [state, setState] = useState("");
+  const [state1, setState1] = useState("");
+  const [state2, setState2] = useState("");
   const [response, setResponse] = useState("");
 
   const handleTestRequest = async () => {
-    if (!policy || !state) {
-      alert("Select both a policy and a state.");
+    if (!policy || !state1 || !state2) {
+      alert("Select a policy and two states.");
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/test", {
+      const res = await fetch("/api/test-comparison", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ policy, state }),
+        body: JSON.stringify({ policy, state1, state2 }),
       });
 
       if (!res.ok) throw new Error("Failed to fetch data");
@@ -58,7 +59,7 @@ export default function TestPage() {
 
       <label>
         <select value={policy} onChange={(e) => setPolicy(e.target.value)}>
-          <option value="">Select Policy</option>
+          <option value="">Policy</option>
           {policies.map((p) => (
             <option key={p} value={p}>{p}</option>
           ))}
@@ -66,8 +67,17 @@ export default function TestPage() {
       </label>
 
       <label>
-        <select value={state} onChange={(e) => setState(e.target.value)}>
-          <option value="">Select State</option>
+        <select value={state1} onChange={(e) => setState1(e.target.value)}>
+          <option value="">First State</option>
+          {states.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <select value={state2} onChange={(e) => setState2(e.target.value)}>
+          <option value="">Second State</option>
           {states.map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
