@@ -35,7 +35,7 @@ export default function TestPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/test", {
+      const res = await fetch("http://localhost:5000/api/test-policy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,43 +46,45 @@ export default function TestPage() {
       if (!res.ok) throw new Error("Failed to fetch data");
 
       const data = await res.json();
+      console.log(data)
       setResponse(JSON.stringify(data, null, 2));
+
     } catch (error) {
       setResponse("Error");
     }
   };
 
   return (
-    <div>
-      <h1>Test Page</h1>
+      <div>
+        <h1>Test Page</h1>
 
-      <label>
-        <select value={policy} onChange={(e) => setPolicy(e.target.value)}>
-          <option value="">Select Policy</option>
-          {policies.map((p) => (
-            <option key={p} value={p}>{p}</option>
-          ))}
-        </select>
-      </label>
+        <label>
+          <select value={policy} onChange={(e) => setPolicy(e.target.value)}>
+            <option value="">Select Policy</option>
+            {policies.map((p) => (
+                <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
+        </label>
 
-      <label>
-        <select value={state} onChange={(e) => setState(e.target.value)}>
-          <option value="">Select State</option>
-          {states.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
-      </label>
+        <label>
+          <select value={state} onChange={(e) => setState(e.target.value)}>
+            <option value="">Select State</option>
+            {states.map((s) => (
+                <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
 
-      <button onClick={handleTestRequest}>
-        Compare
-      </button>
+        <button onClick={handleTestRequest}>
+          Compare
+        </button>
 
-      {response && (
-        <pre>
+        {response && (
+            <pre>
           {response}
         </pre>
-      )}
-    </div>
+        )}
+      </div>
   );
 }

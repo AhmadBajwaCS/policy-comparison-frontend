@@ -36,7 +36,7 @@ export default function TestPage() {
     }
 
     try {
-      const res = await fetch("/api/test-comparison", {
+      const res = await fetch("http://localhost:5000/api/test-comparison", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
