@@ -27,8 +27,8 @@ export default function TestPage() {
   const [policy, setPolicy] = useState("");
   const [state1, setState1] = useState("");
   const [state2, setState2] = useState("");
-  const [response, setResponse] = useState("");
-
+  const [response, setResponse] = useState(null);
+  
   const handleTestRequest = async () => {
     if (!policy || !state1 || !state2) {
       alert("Select a policy and two states.");
@@ -47,7 +47,7 @@ export default function TestPage() {
       if (!res.ok) throw new Error("Failed to fetch data");
 
       const data = await res.json();
-      setResponse(JSON.stringify(data, null, 2));
+      setResponse(data);
     } catch (error) {
       setResponse("Error");
     }
@@ -84,15 +84,37 @@ export default function TestPage() {
         </select>
       </label>
 
-      <button onClick={handleTestRequest}>
+    <button onClick={handleTestRequest}>
         Compare
       </button>
 
-      {response && (
-        <pre>
-          {response}
-        </pre>
+      {response && response !== "Error" && (
+        <div>
+          <h2>Comparison: {response.policy} ({response.state1} vs. {response.state2})</h2>
+          <p>{response.comparison}</p>
+
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>{response.state1}</th>
+                <th>{response.state2}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {response.visualization.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.category}</td>
+                  <td>{row[response.state1]}</td>
+                  <td>{row[response.state2]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
+
+      {response === "Error" && <p style={{ color: "red" }}>Error fetching data.</p>}
     </div>
   );
 }
