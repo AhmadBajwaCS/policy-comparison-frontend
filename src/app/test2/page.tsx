@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 const policies = [
   "Minimum Wage",
@@ -28,7 +29,7 @@ export default function TestPage() {
   const [state1, setState1] = useState("");
   const [state2, setState2] = useState("");
   const [response, setResponse] = useState(null);
-  
+
   const handleTestRequest = async () => {
     if (!policy || !state1 || !state2) {
       alert("Select a policy and two states.");
@@ -84,14 +85,17 @@ export default function TestPage() {
         </select>
       </label>
 
-    <button onClick={handleTestRequest}>
+      <button onClick={handleTestRequest}>
         Compare
       </button>
 
       {response && response !== "Error" && (
         <div>
           <h2>Comparison: {response.policy} ({response.state1} vs. {response.state2})</h2>
-          <p>{response.comparison}</p>
+          
+          <div className="comparison-text">
+            <ReactMarkdown>{response.comparison}</ReactMarkdown>
+          </div>
 
           <table border="1">
             <thead>
