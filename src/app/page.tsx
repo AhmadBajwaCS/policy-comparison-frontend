@@ -43,6 +43,7 @@ export default function Home() {
     const [mapState1, setMapState1] = useState(null);
     const [mapState2, setMapState2] = useState(null);
     const { theme } = useTheme();
+    const [customPolicy, setCustomPolicy] = useState('');
 
     const checkSelections = () => {
         const selectedPolicy = (document.getElementById('policy') as HTMLSelectElement).value;
@@ -68,9 +69,9 @@ export default function Home() {
     };
 
     const handleCompare = () => {
-        setHasInteracted(true); // Set interaction flag on button click
+        setHasInteracted(true);
     
-        const selectedPolicy = policy;
+        const selectedPolicy = policy === "other" ? customPolicy : policy;
         const selectedState1 = interactiveMode ? mapState1 : state1;
         const selectedState2 = interactiveMode ? mapState2 : state2;
     
@@ -86,13 +87,13 @@ export default function Home() {
         setErrorMessage(error);
     
         if (error) {
-            return; // Stop execution if there is an error
+            return;
         }
     
         setSummary(`Comparing ${capitalizeWords(selectedPolicy)} in ${capitalizeWords(selectedState1)} and ${capitalizeWords(selectedState2)}.`);
         setSources([`Source 1: www.samplesources.org`, `Source 2: www.samplesources.org`]);
     };
-    
+        
 
     const handleStateClick = (stateName: string) => {
         if (mapState1 === stateName) {
@@ -126,14 +127,44 @@ export default function Home() {
                             <p>Select a policy and two states to compare.</p>
                         </div>
                         <div className="selection">
-                            <select id="policy" value={policy} onChange={(e) => setPolicy(e.target.value)} onBlur={handleBlur}>
-                                <option value="" disabled>Policy</option>
-                                <option value="minimum wage">Minimum Wage</option>
-                                <option value="medicaid expansion">Medicaid Expansion</option>
-                                <option value="right-to-work laws">Right-To-Work Laws</option>
-                                <option value="marijuana">Marijuana</option>
-                                <option value="state income tax">State Income Tax</option>
-                            </select>
+                        <select 
+                            id="policy" 
+                            value={policy} 
+                            onChange={(e) => {
+                                if (e.target.value === "other") {
+                                    setPolicy("other");
+                                    setCustomPolicy("");
+                                } else {
+                                    setPolicy(e.target.value);
+                                    setCustomPolicy("");
+                                }
+                            }}
+                            onBlur={handleBlur}
+                            style={{ display: policy === "other" ? "none" : "block" }}
+                        >
+                            <option value="" disabled>Policy</option>
+                            <option value="minimum wage">Minimum Wage</option>
+                            <option value="medicaid expansion">Medicaid Expansion</option>
+                            <option value="right-to-work laws">Right-To-Work Laws</option>
+                            <option value="marijuana">Marijuana</option>
+                            <option value="state income tax">State Income Tax</option>
+                            <option value="other">Other (Type Your Own)</option>
+                        </select>
+
+                        {policy === "other" && (
+                            <div className="policy-input-container">
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter your policy..." 
+                                    value={customPolicy}
+                                    onChange={(e) => setCustomPolicy(e.target.value)}
+                                    onBlur={handleBlur}
+                                    className="policy-input"
+                                    autoFocus
+                                />
+                                <button className="cancel-button" onClick={() => setPolicy("")}>✖</button>
+                            </div>
+                        )}                            
                             <select
                                 id="state1"
                                 value={state1}

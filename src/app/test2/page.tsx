@@ -97,7 +97,7 @@ export default function TestPage() {
             <ReactMarkdown>{response.comparison}</ReactMarkdown>
           </div>
 
-          <table border="1">
+          <table className="table-custom">
             <thead>
               <tr>
                 <th>Category</th>
