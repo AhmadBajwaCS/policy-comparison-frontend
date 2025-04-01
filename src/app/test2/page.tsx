@@ -92,29 +92,43 @@ export default function TestPage() {
       {response && response !== "Error" && (
         <div>
           <h2>Comparison: {response.policy} ({response.state1} vs. {response.state2})</h2>
-          
-          <div className="comparison-text">
-            <ReactMarkdown>{response.comparison}</ReactMarkdown>
-          </div>
 
-          <table className="table-custom">
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>{response.state1}</th>
-                <th>{response.state2}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {response.visualization.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.category}</td>
-                  <td>{row[response.state1]}</td>
-                  <td>{row[response.state2]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {response.comparison && (() => {
+            const paragraphs = response.comparison.split("\n\n"); // Split into paragraphs
+            const lastParagraph = paragraphs.pop(); // Extract last paragraph
+            const restOfText = paragraphs.join("\n\n"); // Join remaining paragraphs
+
+            return (
+              <>
+                <div className="comparison-text">
+                  <ReactMarkdown>{restOfText}</ReactMarkdown>
+                </div>
+
+                <table className="table-custom">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>{response.state1}</th>
+                      <th>{response.state2}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {response.visualization.map((row, index) => (
+                      <tr key={index}>
+                        <td>{row.category}</td>
+                        <td>{row[response.state1]}</td>
+                        <td>{row[response.state2]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <div className="last-paragraph">
+                  <ReactMarkdown>{lastParagraph}</ReactMarkdown>
+                </div>
+              </>
+            );
+          })()}
         </div>
       )}
 
