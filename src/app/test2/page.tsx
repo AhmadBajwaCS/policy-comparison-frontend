@@ -35,7 +35,7 @@ export default function TestPage() {
       alert("Select a policy and two states.");
       return;
     }
-
+  
     try {
       const res = await fetch("http://localhost:5000/api/test-comparison", {
         method: "POST",
@@ -44,16 +44,18 @@ export default function TestPage() {
         },
         body: JSON.stringify({ policy, state1, state2 }),
       });
-
+  
       if (!res.ok) throw new Error("Failed to fetch data");
-
+  
       const data = await res.json();
+      console.log("API Response:", data); // ✅ Logs the full API response
       setResponse(data);
     } catch (error) {
+      console.error("Error fetching data:", error);
       setResponse("Error");
     }
   };
-
+  
   return (
     <div>
       <h1>Test Page</h1>
@@ -126,6 +128,22 @@ export default function TestPage() {
                 <div className="last-paragraph">
                   <ReactMarkdown>{lastParagraph}</ReactMarkdown>
                 </div>
+
+                {response.sources && response.sources.length > 0 && (
+                  <div className="sources-section">
+                    <h3>Sources</h3>
+                    <ul>
+                      {response.sources.map((source, index) => (
+                        <li key={index}>
+                          <a href={source.url} target="_blank" rel="noopener noreferrer">
+                            {source.title || source.url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
               </>
             );
           })()}
