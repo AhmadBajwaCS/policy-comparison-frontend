@@ -171,6 +171,7 @@ nav ul li a {
 }
 
 .summary-text {
+  color: black;
   padding: 1.5rem 1.5rem 1rem;
   font-family: 'Inter', sans-serif !important;
 }
@@ -284,6 +285,42 @@ body.dark-mode .source-item a:hover {
   cursor: pointer;
 }
 
+.hover-cell {
+  position: relative;
+  cursor: default;
+}
+
+.hover-cell:hover .source-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.source-tooltip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  margin-bottom: 5px;
+}
+
+.source-tooltip a {
+  color: #4fc3f7;
+  text-decoration: underline;
+}
+
+.source-tooltip a:hover {
+  color: #81d4fa;
+}
 
 
 
