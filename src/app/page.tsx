@@ -17,26 +17,26 @@ const states = [
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ];
 
-const stateAbbreviations: Record<string, string> = {
-    Alabama: "AL", Alaska: "AK", Arizona: "AZ", Arkansas: "AR", California: "CA", Colorado: "CO",
-    Connecticut: "CT", Delaware: "DE", Florida: "FL", Georgia: "GA", Hawaii: "HI", Idaho: "ID",
-    Illinois: "IL", Indiana: "IN", Iowa: "IA", Kansas: "KS", Kentucky: "KY", Louisiana: "LA",
-    Maine: "ME", Maryland: "MD", Massachusetts: "MA", Michigan: "MI", Minnesota: "MN",
-    Mississippi: "MS", Missouri: "MO", Montana: "MT", Nebraska: "NE", Nevada: "NV",
-    "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY",
-    "North Carolina": "NC", "North Dakota": "ND", Ohio: "OH", Oklahoma: "OK", Oregon: "OR",
-    Pennsylvania: "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD",
-    Tennessee: "TN", Texas: "TX", Utah: "UT", Vermont: "VT", Virginia: "VA", Washington: "WA",
-    "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY"
-};
+// const stateAbbreviations: Record<string, string> = {
+//     Alabama: "AL", Alaska: "AK", Arizona: "AZ", Arkansas: "AR", California: "CA", Colorado: "CO",
+//     Connecticut: "CT", Delaware: "DE", Florida: "FL", Georgia: "GA", Hawaii: "HI", Idaho: "ID",
+//     Illinois: "IL", Indiana: "IN", Iowa: "IA", Kansas: "KS", Kentucky: "KY", Louisiana: "LA",
+//     Maine: "ME", Maryland: "MD", Massachusetts: "MA", Michigan: "MI", Minnesota: "MN",
+//     Mississippi: "MS", Missouri: "MO", Montana: "MT", Nebraska: "NE", Nevada: "NV",
+//     "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY",
+//     "North Carolina": "NC", "North Dakota": "ND", Ohio: "OH", Oklahoma: "OK", Oregon: "OR",
+//     Pennsylvania: "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD",
+//     Tennessee: "TN", Texas: "TX", Utah: "UT", Vermont: "VT", Virginia: "VA", Washington: "WA",
+//     "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY"
+// };
 
-const getStateAbbreviation = (stateName: string): string =>
-    stateAbbreviations[stateName] || stateName;
+// const getStateAbbreviation = (stateName: string): string =>
+//     stateAbbreviations[stateName] || stateName;
 
-const getStateFullName = (abbreviation: string): string => {
-    const entry = Object.entries(stateAbbreviations).find(([, abbr]) => abbr === abbreviation);
-    return entry ? entry[0] : abbreviation;
-};
+// const getStateFullName = (abbreviation: string): string => {
+//     const entry = Object.entries(stateAbbreviations).find(([, abbr]) => abbr === abbreviation);
+//     return entry ? entry[0] : abbreviation;
+// };
 
 export default function ComparePage() {
     const [policyTypes, setPolicyTypes] = useState([]);
@@ -65,14 +65,14 @@ export default function ComparePage() {
 
     useEffect(() => {
         if (interactiveMode) {
-            if (state1) setMapState1(getStateFullName(state1));
-            if (state2) setMapState2(getStateFullName(state2));
+            if (state1) setMapState1(state1);
+            if (state2) setMapState2(state2);
         }
     }, [interactiveMode]);
 
     const handleCompare = async () => {
-        let selectedState1 = interactiveMode ? getStateAbbreviation(mapState1) : state1;
-        let selectedState2 = interactiveMode ? getStateAbbreviation(mapState2) : state2;
+        let selectedState1 = interactiveMode ? mapState1 : state1;
+        let selectedState2 = interactiveMode ? mapState2 : state2;
 
         if (!selectedState1 || !selectedState2 || !policyTypeId) {
             alert("Please select two states and a policy type.");
@@ -104,10 +104,10 @@ export default function ComparePage() {
             setState2("");
         } else if (!mapState1) {
             setMapState1(stateName);
-            setState1(getStateAbbreviation(stateName));
+            setState1(stateName);
         } else if (!mapState2 && stateName !== mapState1) {
             setMapState2(stateName);
-            setState2(getStateAbbreviation(stateName));
+            setState2(stateName);
         }
     };
 
@@ -131,13 +131,13 @@ export default function ComparePage() {
                             <select value={state1} onChange={(e) => setState1(e.target.value)} disabled={interactiveMode}>
                                 <option value="" disabled>State</option>
                                 {states.map((state) => (
-                                    <option key={state} value={getStateAbbreviation(state)}>{state}</option>
+                                    <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
                             <select value={state2} onChange={(e) => setState2(e.target.value)} disabled={interactiveMode}>
                                 <option value="" disabled>State</option>
                                 {states.map((state) => (
-                                    <option key={state} value={getStateAbbreviation(state)}>{state}</option>
+                                    <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
@@ -173,13 +173,13 @@ export default function ComparePage() {
                             <div className="result-content">
                                 {response.visualization && Array.isArray(response.visualization) && (
                                 <div className="visualization-table">
-                                    <h3>Comparing {response.policy_name} in {getStateFullName(response.state1)} and {getStateFullName(response.state2)}</h3>
+                                    <h3>Comparing {response.policy_name} in {response.state1} and {response.state2}</h3>
                                     <table className="table-custom">
                                         <thead>
                                             <tr>
                                                 <th>Category</th>
-                                                <th>{getStateFullName(response.state1)}</th>
-                                                <th>{getStateFullName(response.state2)}</th>
+                                                <th>{response.state1}</th>
+                                                <th>{response.state2}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
