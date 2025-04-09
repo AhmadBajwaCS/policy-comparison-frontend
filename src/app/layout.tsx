@@ -22,7 +22,7 @@ function Navbar() {
         </Link>
         <ul>
           <li><Link href="/">Home</Link></li>
-          <li><Link href="/about">About</Link></li>
+          <li><Link href="/About">About</Link></li>
           <li>
               <img
                   src={`/assets/images/${theme === 'light' ? 'moon-empty' : 'moon-filled'}.png`}
