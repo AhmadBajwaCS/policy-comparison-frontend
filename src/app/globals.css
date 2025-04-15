@@ -548,3 +548,63 @@ body.dark-mode .policy-input {
   transition: border-color 0.3s ease-in-out;
   max-width: 75%;
 }
+
+/* chatbot */
+.chatbox {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 300px;
+  padding-right: 0.5rem;
+}
+
+.message {
+  margin: 0.25rem 0;
+}
+
+.message.user .bubble {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+}
+
+.message.bot .bubble {
+  background-color: #f8d7da;
+  align-self: flex-start;
+}
+
+.bubble {
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  max-width: 80%;
+  display: inline-block;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}

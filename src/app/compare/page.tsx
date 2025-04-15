@@ -6,6 +6,7 @@ import Image from "next/image";
 import USMap from "../components/USMap";
 import { useTheme } from "../context/ThemeContext";
 import rehypeRaw from 'rehype-raw';
+import Chatbot from "../components/Chatbot";    
 
 const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
@@ -30,6 +31,7 @@ const stateAbbreviations: Record<string, string> = {
     "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY"
 };
 
+
 const getStateAbbreviation = (stateName: string): string =>
     stateAbbreviations[stateName] || stateName;
 
@@ -53,7 +55,7 @@ export default function ComparePage() {
     useEffect(() => {
         const fetchPolicyTypes = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/policy-types");
+                const res = await fetch("http://localhost:3000/api/policy-types");
                 const data = await res.json();
                 setPolicyTypes(data);
             } catch (error) {
@@ -88,7 +90,7 @@ export default function ComparePage() {
         setResponse(null); // Clear old result
 
         let res = await fetch(
-            `http://localhost:5000/api/comparison?state1=${selectedState1}&state2=${selectedState2}&policy_type_id=${policyTypeId}`
+            `http://localhost:3000/api/comparison?state1=${selectedState1}&state2=${selectedState2}&policy_type_id=${policyTypeId}`
         );
         let data = await res.json();
         setResponse(data);

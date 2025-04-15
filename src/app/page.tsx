@@ -7,6 +7,7 @@ import USMap from "../app/components/USMap";
 import { useTheme } from "../app/context/ThemeContext";
 import rehypeRaw from 'rehype-raw';
 
+
 const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
     "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
@@ -53,7 +54,7 @@ export default function ComparePage() {
     useEffect(() => {
         const fetchPolicyTypes = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/policy-types");
+                const res = await fetch("http://localhost:3000/api/policy-types");
                 const data = await res.json();
                 setPolicyTypes(data);
             } catch (error) {
@@ -88,7 +89,7 @@ export default function ComparePage() {
         setResponse(null);
 
         let res = await fetch(
-            `http://localhost:5000/api/comparison?state1=${selectedState1}&state2=${selectedState2}&policy_type_id=${policyTypeId}`
+            `http://localhost:3000/api/comparison?state1=${selectedState1}&state2=${selectedState2}&policy_type_id=${policyTypeId}`
         );
         let data = await res.json();
         setResponse(data);
@@ -278,6 +279,7 @@ export default function ComparePage() {
                     <div className="container">
                         <div className="section-header">
                             <h2>Chatbot</h2>
+                            
                         </div>
                     </div>
                 </div>
