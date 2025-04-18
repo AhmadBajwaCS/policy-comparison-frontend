@@ -5,8 +5,8 @@ import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import USMap from "../components/USMap";
 import { useTheme } from "../context/ThemeContext";
-import rehypeRaw from 'rehype-raw';
-import Chatbot from "../components/Chatbot";    
+import rehypeRaw from 'rehype-raw';    
+// import ChatBot from "../components/Chatbot";
 
 const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
@@ -265,6 +265,7 @@ export default function ComparePage() {
                     <div className="container">
                         <div className="section-header">
                             <h2>Chatbot</h2>
+                            {/* <ChatBot /> */}
                         </div>
                     </div>
                 </div>

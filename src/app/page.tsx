@@ -7,6 +7,8 @@ import USMap from "../app/components/USMap";
 import { useTheme } from "../app/context/ThemeContext";
 import rehypeRaw from 'rehype-raw';
 
+import ChatBot from "../app/components/Chatbot";
+
 
 const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
@@ -274,14 +276,9 @@ export default function ComparePage() {
 
                     </div>
                 </div>
-
-                <div className="chatbot">
-                    <div className="container">
-                        <div className="section-header">
-                            <h2>Chatbot</h2>
-                            
-                        </div>
-                    </div>
+{/* Chatbot added */}
+                <div>
+                    <ChatBot></ChatBot>
                 </div>
             </section>
         </div>
