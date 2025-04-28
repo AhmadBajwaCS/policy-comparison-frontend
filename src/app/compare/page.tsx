@@ -5,7 +5,8 @@ import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import USMap from "../components/USMap";
 import { useTheme } from "../context/ThemeContext";
-import rehypeRaw from 'rehype-raw';
+import rehypeRaw from 'rehype-raw';    
+// import ChatBot from "../components/Chatbot";
 
 const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
@@ -29,6 +30,7 @@ const stateAbbreviations: Record<string, string> = {
     Tennessee: "TN", Texas: "TX", Utah: "UT", Vermont: "VT", Virginia: "VA", Washington: "WA",
     "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY"
 };
+
 
 const getStateAbbreviation = (stateName: string): string =>
     stateAbbreviations[stateName] || stateName;
@@ -263,6 +265,7 @@ export default function ComparePage() {
                     <div className="container">
                         <div className="section-header">
                             <h2>Chatbot</h2>
+                            {/* <ChatBot /> */}
                         </div>
                     </div>
                 </div>

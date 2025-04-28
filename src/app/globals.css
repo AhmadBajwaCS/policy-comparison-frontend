@@ -143,6 +143,8 @@ nav ul li a {
 .input-wrapper {
   display: grid;
   place-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .selection {
@@ -547,4 +549,122 @@ body.dark-mode .policy-input {
   color: white;
   transition: border-color 0.3s ease-in-out;
   max-width: 75%;
+}
+
+/* Chatbot input finetune */
+
+.chat-intro {
+  text-align: center;
+  padding: 10vh 2vw;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.chat-intro .headline {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4F4F4F;
+}
+
+.chat-intro .subtext {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  color: #7A7A7A;
+}
+
+body.dark-mode .chat-intro .headline {
+  color: #ffffff;
+}
+
+body.dark-mode .chat-intro .subtext {
+  color: #dedede;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  
+}
+
+#chatbot-input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.submit-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.submit-icon img {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+/* asdasda */
+/* Chatbot message styles */
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.bot {
+  justify-content: flex-start;
+}
+
+.chat-message-content {
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 80%;
+  font-size: 1rem;
+}
+
+.chat-message.user .chat-message-content {
+  background: #f3f3f3;
+  color: #000;
+}
+
+.chat-message.bot .chat-message-content {
+  background: #e5e7eb;
+  color: #000;
+}
+
+body.dark-mode .chat-message.bot .chat-message-content {
+  background: #1f2937;
+  color: #fff;
+}
+
+.chatbot-form {
+  padding: 0 25px 1.5rem;
+  box-sizing: border-box;
 }
