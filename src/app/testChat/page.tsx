@@ -140,7 +140,7 @@ export default function ComparePage() {
     setChatLoading(true);
 
     try {
-        const res = await fetch("http://localhost:5000/api/chatbot/test", {
+        const res = await fetch("http://localhost:5000/api/chatbot", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -361,7 +361,11 @@ export default function ComparePage() {
                     fontSize: "1rem"
                   }}
                 >
-                  {msg.content}
+                  <div className='chat-message-content'>
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               </div>
             ))}
