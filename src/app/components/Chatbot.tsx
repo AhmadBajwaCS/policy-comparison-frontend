@@ -8,7 +8,14 @@ type Message = {
   content: string;
 };
 
-export default function ChatBot() {
+interface ChatBotProps {
+  state1: string;
+  state2: string;
+  policyTypeId: string;
+  policyName: string;
+}
+
+export default function ChatBot({ state1, state2, policyTypeId, policyName }: ChatBotProps) {
   const { theme } = useTheme();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -24,13 +31,18 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("http://localhost:5000/api/chatbot/test", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage.content }),
+        body: JSON.stringify({
+          state1: state1,
+          state2: state2,
+          policy_type_id: policyTypeId,
+          query: userMessage.content,
+        }),
       });
       const data = await res.json();
-      const botMessage: Message = { sender: "bot", content: data.reply };
+      const botMessage: Message = { sender: "bot", content: data.response };
       setMessages(prev => [...prev, botMessage]);
     } catch {
       const botMessage: Message = {
