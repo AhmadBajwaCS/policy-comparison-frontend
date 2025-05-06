@@ -248,8 +248,13 @@ body.dark-mode .source-item a:hover {
 .last-paragraph {
   background-color: #EFF6FF;
   border-radius: 10px;
-  padding: 1vh 2vw;
-  color: #5668C0;
+  padding: 3vh 2vw;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+
+.last-paragraph * {
+  color: #5668C0 !important;
 }
 
 .policy-input-container {
@@ -297,11 +302,19 @@ body.dark-mode .source-item a:hover {
   opacity: 1;
 }
 
+
+.tooltip-wrapper {
+  display: inline-block;
+}
+.tooltip-wrapper:hover .source-tooltip {
+  display: block;
+}
+
 .source-tooltip {
   visibility: hidden;
   position: absolute;
-  z-index: 1;
-  bottom: 100%;
+  z-index: 1000;
+  bottom: 70%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #333;
@@ -309,7 +322,8 @@ body.dark-mode .source-item a:hover {
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 0.8rem;
-  white-space: nowrap;
+  text-align: center;
+  white-space: normal;
   opacity: 0;
   transition: opacity 0.3s;
   margin-bottom: 5px;
@@ -423,7 +437,7 @@ body.dark-mode .table-custom tr {
 
 body.dark-mode .last-paragraph {
   background-color: #01070f;
-  color: #7f90eb;
+  color: #7f90eb !important;
 }
 
 
@@ -451,11 +465,11 @@ body.dark-mode .initial-message .subtext {
 }
 
 .result-content {
-  padding: 0.2rem 1rem 1rem 1rem;
+  padding: 2rem 3rem 2rem 3rem;
 }
 
 .comparison-text {
-  color: "#000";
+  color: black;
 }
 
 .spinner-wrapper {
