@@ -3,8 +3,8 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
-import USMap from "../components/USMap";
-import { useTheme } from "../context/ThemeContext";
+import USMap from "../app/components/USMap";
+import { useTheme } from "../app/context/ThemeContext";
 import rehypeRaw from "rehype-raw";
 
 // Chat message structure
