@@ -3,13 +3,13 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
-import USMap from "../app/components/USMap";
-import { useTheme } from "../app/context/ThemeContext";
+import USMap from "../components/USMap";
+import { useTheme } from "../context/ThemeContext";
 import rehypeRaw from "rehype-raw";
-import ChatBot from "../app/components/Chatbot";  
+
 // Chat message structure
 type Message = { sender: "user" | "bot"; content: string };
-  
+
 const states = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
   "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
@@ -20,6 +20,26 @@ const states = [
   "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ];
 
+// const stateAbbreviations: Record<string, string> = {
+//     Alabama: "AL", Alaska: "AK", Arizona: "AZ", Arkansas: "AR", California: "CA", Colorado: "CO",
+//     Connecticut: "CT", Delaware: "DE", Florida: "FL", Georgia: "GA", Hawaii: "HI", Idaho: "ID",
+//     Illinois: "IL", Indiana: "IN", Iowa: "IA", Kansas: "KS", Kentucky: "KY", Louisiana: "LA",
+//     Maine: "ME", Maryland: "MD", Massachusetts: "MA", Michigan: "MI", Minnesota: "MN",
+//     Mississippi: "MS", Missouri: "MO", Montana: "MT", Nebraska: "NE", Nevada: "NV",
+//     "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY",
+//     "North Carolina": "NC", "North Dakota": "ND", Ohio: "OH", Oklahoma: "OK", Oregon: "OR",
+//     Pennsylvania: "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD",
+//     Tennessee: "TN", Texas: "TX", Utah: "UT", Vermont: "VT", Virginia: "VA", Washington: "WA",
+//     "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY"
+// };
+
+// const getStateAbbreviation = (stateName: string): string =>
+//     stateAbbreviations[stateName] || stateName;
+
+// const getStateFullName = (abbreviation: string): string => {
+//     const entry = Object.entries(stateAbbreviations).find(([, abbr]) => abbr === abbreviation);
+//     return entry ? entry[0] : abbreviation;
+// };
 
 
 export default function ComparePage() {
@@ -205,68 +225,59 @@ export default function ComparePage() {
                         ) : response && !response.error && (
                             <div className="result-content">
                                 {response.visualization && Array.isArray(response.visualization) && (
-                                    <div className="visualization-table">
-                                        <h3>Comparing {response.policy_name} in {response.state1} and {response.state2}</h3>
-                                        <table className="table-custom">
-                                            <thead>
-                                                <tr>
-                                                    <th>Category</th>
-                                                    <th>{response.state1}</th>
-                                                    <th>{response.state2}</th>
+                                <div className="visualization-table">
+                                    <h3>Comparing {response.policy_name} in {response.state1} and {response.state2}</h3>
+                                    <table className="table-custom">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>{response.state1}</th>
+                                                <th>{response.state2}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {response.visualization.map((row, index) => (
+                                                <tr key={index}>
+                                                    <td>{row.category}</td>
+                                                    <td className="hover-cell">
+                                                        {row[response.state1]}
+                                                        {row[`${response.state1}_source`] && row[`${response.state1}_source`] !== "0" && (
+                                                            <span className="source-tooltip">
+                                                                Source: <a href={row[`${response.state1}_source`]} target="_blank" rel="noopener noreferrer">
+                                                                    {row[`${response.state1}_source`]}
+                                                                </a>
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className="hover-cell">
+                                                        {row[response.state2]}
+                                                        {row[`${response.state2}_source`] && row[`${response.state2}_source`] !== "0" && (
+                                                            <span className="source-tooltip">
+                                                                Source: <a href={row[`${response.state2}_source`]} target="_blank" rel="noopener noreferrer">
+                                                                    {row[`${response.state2}_source`]}
+                                                                </a>
+                                                            </span>
+                                                        )}
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {response.visualization.map((row, index) => (
-                                                    <tr key={index}>
-                                                        <td>{row.category}</td>
-                                                        <td className="hover-cell">
-                                                            {row[response.state1]}
-                                                            {row[`${response.state1}_source`] && row[`${response.state1}_source`] !== "0" && (
-                                                                <div className="tooltip-wrapper">
-                                                                <span className="source-tooltip">
-                                                                    Source: <a href={row[`${response.state1}_source`]} target="_blank" rel="noopener noreferrer">
-                                                                    {row[`${response.state1}_source`]}
-                                                                    </a>
-                                                                </span>
-                                                                </div>
-                                                            )}
-                                                        </td>
-                                                        <td className="hover-cell">
-                                                            {row[response.state2]}
-                                                            {row[`${response.state2}_source`] && row[`${response.state1}_source`] !== "0" && (
-                                                                <div className="tooltip-wrapper">
-                                                                <span className="source-tooltip">
-                                                                    Source: <a href={row[`${response.state1}_source`]} target="_blank" rel="noopener noreferrer">
-                                                                    {row[`${response.state1}_source`]}
-                                                                    </a>
-                                                                </span>
-                                                                </div>
-                                                            )}
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                )}
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                    {`**${response.state1}:**<div class="processed-text">${response.state1_processed_text}</div>`}
+                                </ReactMarkdown>
+                                <br />
+                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                    {`**${response.state2}:**<div class="processed-text">${response.state2_processed_text}</div>`}
+                                </ReactMarkdown>
 
-                                {(() => {
-                                const paragraphs = response.comparison_text.split("\n\n");
-                                const lastParagraph = paragraphs.pop(); // take out the last one
-                                const restOfText = paragraphs.join("\n\n");
-
-                                return (
-                                    <>
-                                    <div className="comparison-text">
-                                        <ReactMarkdown>{restOfText}</ReactMarkdown>
-                                    </div>
-                                    <div className="last-paragraph">
-                                        <ReactMarkdown>{lastParagraph}</ReactMarkdown>
-                                    </div>
-                                    </>
-                                );
-                                })()}
-
+                                <div className="comparison-text">
+                                    <br />
+                                    <h3>Comparison:</h3>
+                                    <ReactMarkdown>{response.comparison_text}</ReactMarkdown>
+                                </div>
                                 {response.sources && response.sources.length > 0 && (
                                     <div>
                                         <br />
@@ -288,7 +299,6 @@ export default function ComparePage() {
                                         </ul>
                                     </div>
                                 )}
-
                                 <div style={{ fontSize: "0.75rem", color: "#9CA3AF", marginTop: "0.5rem", fontStyle: "italic" }}>
                                     Last updated: {new Date(response.last_updated).toLocaleString()}
                                 </div>
@@ -313,8 +323,10 @@ export default function ComparePage() {
                                 </div>
                             </div>
                         )}
+
                     </div>
                 </div>
+                
             </section>
 
       {/* Chatbot Section */}

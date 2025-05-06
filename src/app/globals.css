@@ -682,3 +682,16 @@ body.dark-mode .chat-message.bot .chat-message-content {
   padding: 0 25px 1.5rem;
   box-sizing: border-box;
 }
+
+.chat-message-content,
+.chat-message-content p,
+.chat-message-content ul,
+.chat-message-content li,
+.chat-message-content strong,
+.chat-message-content em {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
