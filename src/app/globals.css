@@ -653,7 +653,6 @@ body.dark-mode .chat-intro .subtext {
 
 .chat-message-content {
   border-radius: 12px;
-  max-width: 100%;
   font-size: 1rem;
 }
 
@@ -686,6 +685,4 @@ body.dark-mode .chat-message.bot .chat-message-content {
   color: inherit;
   font-size: inherit;
   line-height: inherit;
-  margin: 0;
-  padding: 0;
 }

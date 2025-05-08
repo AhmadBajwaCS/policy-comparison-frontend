@@ -350,7 +350,7 @@ export default function ComparePage() {
                   }}
                 >
                   <div className='chat-message-content'>
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                    <ReactMarkdown>
                       {msg.content}
                     </ReactMarkdown>
                   </div>
