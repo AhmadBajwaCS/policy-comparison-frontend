@@ -24,6 +24,12 @@ const states = [
 
 export default function ComparePage() {
   const { theme } = useTheme();
+  const loadingMessages = [
+    "Loading...",
+    "Searching the web...",
+    "Gathering sources...",
+    "Summarizing results...",
+  ];
 
   // Policy comparison state
   const [policyTypes, setPolicyTypes] = useState<any[]>([]);
@@ -35,11 +41,24 @@ export default function ComparePage() {
   const [interactiveMode, setInteractiveMode] = useState<boolean>(false);
   const [mapState1, setMapState1] = useState<string | null>(null);
   const [mapState2, setMapState2] = useState<string | null>(null);
+  const [loadingMessage, setLoadingMessage] = useState(loadingMessages[0]);
 
   // Chatbot state
   const [chatInput, setChatInput] = useState<string>("");
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [chatLoading, setChatLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!loading) return;
+  
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % loadingMessages.length;
+      setLoadingMessage(loadingMessages[index]);
+    }, 2000);
+  
+    return () => clearInterval(interval);
+  }, [loading]);
 
   // Fetch available policy types on mount
   useEffect(() => {
@@ -195,8 +214,9 @@ export default function ComparePage() {
                         </div>
 
                         {loading ? (
-                            <div className="spinner-wrapper">
-                                <div className="spinner" />
+                            <div className="loading-wrapper">
+                                <div className="loading-message">{loadingMessage}</div>
+                                <div className="loading-bar" />
                             </div>
                         ) : !response ? (
                             <div className="result-content initial-message">

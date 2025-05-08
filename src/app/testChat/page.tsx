@@ -215,9 +215,9 @@ export default function ComparePage() {
                         </div>
 
                         {loading ? (
-                            <div className="spinner-wrapper">
-                                <div className="spinner" />
-                            </div>
+                            <div className="loading-wrapper">
+                              <div className="loading-bar" />
+                            </div>                        
                         ) : !response ? (
                             <div className="result-content initial-message">
                                 <p className="subtext">Use the dropdown buttons above to get started!</p>

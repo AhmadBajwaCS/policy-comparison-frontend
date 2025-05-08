@@ -465,26 +465,60 @@ body.dark-mode .initial-message .subtext {
   color: black;
 }
 
-.spinner-wrapper {
+
+.loading-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
   min-height: 150px;
+  flex-direction: column;
 }
 
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #ccc;
-  border-top: 5px solid #000;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.loading-bar {
+  width: 95%;
+  height: 7px;
+  background: #ccc;
+  overflow: hidden;
+  position: relative;
+  border-radius: 999px;
 }
 
-body.dark-mode .spinner {
-  border: 5px solid #444;
-  border-top: 5px solid #fff;
+.loading-bar::before {
+  content: '';
+  position: absolute;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: #00bfff;
+  animation: loading 1s linear infinite;
+  border-radius: 999px;
+}
+
+.loading-message {
+  width: 95%;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #444;
+  font-size: 1rem;
+}
+
+
+@keyframes loading {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+body.dark-mode .loading-bar {
+  background: #222;
+}
+
+body.dark-mode .loading-bar::before {
+  background: #00bfff;
 }
 
 @keyframes spin {
