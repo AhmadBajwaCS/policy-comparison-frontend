@@ -497,12 +497,18 @@ body.dark-mode .initial-message .subtext {
 
 .loading-message {
   width: 90%;
-  text-align: left;
-  margin-bottom: 18px;
+  text-align: center;
+  margin-bottom: 25px;
   color: #444;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
+.loading-message.show {
+  opacity: 1;
+}
 
 @keyframes loading {
   0% {

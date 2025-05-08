@@ -42,6 +42,7 @@ export default function ComparePage() {
   const [mapState1, setMapState1] = useState<string | null>(null);
   const [mapState2, setMapState2] = useState<string | null>(null);
   const [loadingMessage, setLoadingMessage] = useState(loadingMessages[0]);
+  const [showMessage, setShowMessage] = useState(true);
 
   // Chatbot state
   const [chatInput, setChatInput] = useState<string>("");
@@ -53,8 +54,12 @@ export default function ComparePage() {
   
     let index = 0;
     const interval = setInterval(() => {
-      index = (index + 1) % loadingMessages.length;
-      setLoadingMessage(loadingMessages[index]);
+      setShowMessage(false);
+      setTimeout(() => {
+        index = (index + 1) % loadingMessages.length;
+        setLoadingMessage(loadingMessages[index]);
+        setShowMessage(true);
+      }, 300); // wait for fade out before switching
     }, 2000);
   
     return () => clearInterval(interval);
@@ -215,7 +220,7 @@ export default function ComparePage() {
 
                         {loading ? (
                             <div className="loading-wrapper">
-                                <div className="loading-message">{loadingMessage}</div>
+                                <div className={`loading-message ${showMessage ? 'show' : ''}`}>{loadingMessage}</div>
                                 <div className="loading-bar" />
                             </div>
                         ) : !response ? (
