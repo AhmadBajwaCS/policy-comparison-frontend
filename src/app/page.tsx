@@ -115,6 +115,8 @@ export default function ComparePage() {
     if (!chatInput.trim()) return;
 
     const userMessage: Message = { sender: "user", content: chatInput };
+    const chatHistory = chatMessages.slice(-4);
+
     setChatMessages((prev) => [...prev, userMessage]);
     setChatInput("");
     setChatLoading(true);
@@ -128,6 +130,7 @@ export default function ComparePage() {
               state2,
               policy_type_id: policyTypeId,
               query: userMessage.content,
+              chat_history: chatHistory,
             }),
           });
       const data = await res.json();
