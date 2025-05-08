@@ -140,13 +140,6 @@ nav ul li a {
   padding: 13vh;
 }
 
-.input-wrapper {
-  display: grid;
-  place-items: center;
-  display: flex;
-  align-items: center;
-}
-
 .selection {
   display: flex;
   flex-direction: row;
@@ -596,27 +589,29 @@ body.dark-mode .chat-intro .subtext {
 .input-wrapper {
   position: relative;
   width: 100%;
-  
   display: flex;
   align-items: center;
-  
+  display: grid;
+  place-items: center;
 }
 
 #chatbot-input {
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-  padding: 0.5rem 3rem 0.5rem 1rem;
+  padding: 1rem 3rem 1rem 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
   outline: none;
   transition: border-color 0.3s ease-in-out;
+  font-size: 1rem;
 }
 
 .submit-icon {
   position: absolute;
+  height: 80%;
   top: 50%;
-  right: 5px;
+  right: 15px;
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -657,9 +652,8 @@ body.dark-mode .chat-intro .subtext {
 }
 
 .chat-message-content {
-  padding: 1rem;
   border-radius: 12px;
-  max-width: 80%;
+  max-width: 100%;
   font-size: 1rem;
 }
 

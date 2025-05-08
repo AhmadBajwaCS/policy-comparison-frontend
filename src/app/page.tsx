@@ -345,7 +345,7 @@ export default function ComparePage() {
                     color: theme === "light" ? "#000" : "#fff",
                     padding: "1rem",
                     borderRadius: "12px",
-                    maxWidth: "80%",
+                    maxWidth: "100%",
                     fontSize: "1rem"
                   }}
                 >
@@ -365,7 +365,7 @@ export default function ComparePage() {
                     color: theme === "light" ? "#000" : "#fff",
                     padding: "1rem",
                     borderRadius: "12px",
-                    maxWidth: "80%",
+                    maxWidth: "100%",
                     fontSize: "1rem"
                   }}
                 >
