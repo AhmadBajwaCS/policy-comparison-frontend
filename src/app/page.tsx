@@ -36,6 +36,8 @@ export default function ComparePage() {
   const [policyTypeId, setPolicyTypeId] = useState<string>("");
   const [state1, setState1] = useState<string>("");
   const [state2, setState2] = useState<string>("");
+  const [customPolicyMode, setCustomPolicyMode] = useState(false);
+  const [customPolicyInput, setCustomPolicyInput] = useState("");
   const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [interactiveMode, setInteractiveMode] = useState<boolean>(false);
@@ -88,36 +90,80 @@ export default function ComparePage() {
   }, [interactiveMode]);
 
   const handleCompare = async () => {
-    const selectedState1 = interactiveMode ? mapState1 : state1;
-    const selectedState2 = interactiveMode ? mapState2 : state2;
+      const selectedState1 = interactiveMode ? mapState1 : state1;
+      const selectedState2 = interactiveMode ? mapState2 : state2;
 
-    if (!selectedState1 || !selectedState2 || !policyTypeId) {
-      alert("Please select two states and a policy type.");
-      return;
-    }
-    if (selectedState1 === selectedState2) {
-      setResponse({ error: "Please select two different states for comparison." });
-      return;
-    }
+      console.log("Selected State 1:", selectedState1);
+      console.log("Selected State 2:", selectedState2);
+      console.log("Custom Policy Mode:", customPolicyMode);
 
-    setLoading(true);
-    setResponse(null);
+// Custom policy mode flow
+      if (customPolicyMode) {
+          if (!customPolicyInput.trim()) {
+              alert("Please enter a custom policy name.");
+              return;
+          }
 
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/comparison?state1=${selectedState1}&state2=${selectedState2}&policy_type_id=${policyTypeId}`
-      );
-      const data = await res.json();
-      setResponse(data);
-    } catch (err) {
-      console.error(err);
-      setResponse({ error: "Comparison failed. Try again." });
-    } finally {
-      setLoading(false);
-    }
+          try {
+              const res = await fetch("http://localhost:5000/api/policy-types", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ policy_name: customPolicyInput.trim() }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error || "Policy creation failed.");
+
+              setPolicyTypes((prev) => [...prev, data]);
+              setPolicyTypeId(data.policy_type_id);
+
+              if (!selectedState1 || !selectedState2 || !policyTypeId) {
+                  alert("Please select two states and either choose or enter a policy.");
+                  return;
+              }
+
+              fetchComparison(selectedState1, selectedState2, data.policy_type_id);
+          } catch (err) {
+              alert("Error adding policy: " + err.message);
+          }
+      } else {
+          // Normal dropdown flow
+          if (!policyTypeId) {
+              alert("Please select a policy.");
+              return;
+          }
+
+          if (!selectedState1 || !selectedState2 || !policyTypeId) {
+              alert("Please select two states and either choose or enter a policy.");
+              return;
+          }
+
+          fetchComparison(selectedState1, selectedState2, policyTypeId);
+      }
   };
 
-  const handleStateClick = (stateName: string) => {
+    const fetchComparison = async (state1: string, state2: string, policyTypeId: string) => {
+        setLoading(true);
+        setResponse(null);
+
+        console.log("📤 Fetching comparison with:", { state1, state2, policyTypeId });
+
+        try {
+            const res = await fetch(
+                `http://localhost:5000/api/comparison?state1=${state1}&state2=${state2}&policy_type_id=${policyTypeId}`
+            );
+            const data = await res.json();
+            setResponse(data);
+        } catch (err) {
+            console.error(err);
+            setResponse({ error: "Comparison failed. Try again." });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleStateClick = (stateName: string) => {
     if (mapState1 === stateName) {
       setMapState1(null);
       setState1("");
@@ -179,41 +225,74 @@ export default function ComparePage() {
                             <p>Select a policy and two states to compare.</p>
                         </div>
                         <div className="selection">
-                            <select value={policyTypeId} onChange={(e) => setPolicyTypeId(e.target.value)}>
-                                <option value="" disabled>Policy</option>
-                                {policyTypes.map((p) => (
-                                    <option key={p.policy_type_id} value={p.policy_type_id}>{p.policy_name}</option>
-                                ))}
-                            </select>
-                            <select value={state1} onChange={(e) => setState1(e.target.value)} disabled={interactiveMode}>
+                            {!customPolicyMode ? (
+                                <select
+                                    value={policyTypeId}
+                                    onChange={(e) => setPolicyTypeId(e.target.value)}
+                                >
+                                    <option value="" disabled>Policy</option>
+                                    {policyTypes.map((p) => (
+                                        <option key={p.policy_type_id} value={p.policy_type_id}>
+                                            {p.policy_name}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type="text"
+                                    placeholder="Enter custom policy name"
+                                    value={customPolicyInput}
+                                    onChange={(e) => setCustomPolicyInput(e.target.value)}
+                                    style={{ padding: "0.5rem" }}
+                                />
+                            )}
+
+                            <select value={state1} onChange={(e) => setState1(e.target.value)}
+                                    disabled={interactiveMode}>
                                 <option value="" disabled>State</option>
                                 {states.map((state) => (
                                     <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
-                            <select value={state2} onChange={(e) => setState2(e.target.value)} disabled={interactiveMode}>
+                            <select value={state2} onChange={(e) => setState2(e.target.value)}
+                                    disabled={interactiveMode}>
                                 <option value="" disabled>State</option>
                                 {states.map((state) => (
                                     <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                            <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                width: "100%"
+                            }}>
                                 <button id="compare" onClick={handleCompare}>Compare</button>
                                 <label className="interact">
                                     Interactive Mode
-                                    <input className="checkbox" type="checkbox" checked={interactiveMode} onChange={() => setInteractiveMode((prev) => !prev)} />
+                                    <input className="checkbox" type="checkbox" checked={interactiveMode}
+                                           onChange={() => setInteractiveMode((prev) => !prev)}/>
+                                </label>
+                                <label className="interact" style={{marginLeft: "1rem"}}>
+                                    Custom Policy
+                                    <input
+                                        className="checkbox"
+                                        type="checkbox"
+                                        checked={customPolicyMode}
+                                        onChange={() => setCustomPolicyMode(prev => !prev)}
+                                    />
                                 </label>
                             </div>
                         </div>
                         {interactiveMode && (
-                            <USMap selectedStates={[mapState1, mapState2]} onStateClick={handleStateClick} />
+                            <USMap selectedStates={[mapState1, mapState2]} onStateClick={handleStateClick}/>
                         )}
                     </div>
                 </div>
 
-                <div className="results">
-                    <div className="container">
-                        <div className="section-header">
+          <div className="results">
+              <div className="container">
+                  <div className="section-header">
                             <h2>Results</h2>
                             <p>View a summary of the comparison and its sources.</p>
                         </div>
