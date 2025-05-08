@@ -476,7 +476,7 @@ body.dark-mode .initial-message .subtext {
 }
 
 .loading-bar {
-  width: 95%;
+  width: 90%;
   height: 7px;
   background: #ccc;
   overflow: hidden;
@@ -491,14 +491,14 @@ body.dark-mode .initial-message .subtext {
   width: 40%;
   height: 100%;
   background: #00bfff;
-  animation: loading 1s linear infinite;
+  animation: loading 3s linear infinite;
   border-radius: 999px;
 }
 
 .loading-message {
-  width: 95%;
+  width: 90%;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
   color: #444;
   font-size: 1rem;
 }
