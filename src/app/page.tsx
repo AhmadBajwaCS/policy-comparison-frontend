@@ -173,6 +173,7 @@ export default function ComparePage() {
     const fetchComparison = async (state1: string, state2: string, policyTypeId: string) => {
         setLoading(true);
         setResponse(null);
+        setChatMessages([]);
 
         console.log("📤 Fetching comparison with:", { state1, state2, policyTypeId });
 
