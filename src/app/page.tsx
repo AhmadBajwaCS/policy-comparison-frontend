@@ -264,11 +264,11 @@ export default function ComparePage() {
                                 </select>
                             ) : (
                                 <input
+                                    className="custom-input"
                                     type="text"
                                     placeholder="Enter custom policy name"
                                     value={customPolicyInput}
                                     onChange={(e) => setCustomPolicyInput(e.target.value)}
-                                    style={{ padding: "0.5rem" }}
                                 />
                             )}
 
@@ -286,13 +286,14 @@ export default function ComparePage() {
                                     <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
+                            <button id="compare" onClick={handleCompare}>Compare</button>
                             <div style={{
                                 display: "flex",
+                                justifyContent: "flex-end",
+                                gap: "10px",
+                                width: "100%",
                                 alignItems: "center",
-                                justifyContent: "space-between",
-                                width: "100%"
                             }}>
-                                <button id="compare" onClick={handleCompare}>Compare</button>
                                 <label className="interact">
                                     Interactive Mode
                                     <input className="checkbox" type="checkbox" checked={interactiveMode}

@@ -152,6 +152,15 @@ nav ul li a {
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 1rem;
+  width: 200px;
+}
+
+.custom-input {
+  padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 200px;
 }
 
 .selection button {
@@ -379,6 +388,12 @@ body.dark-mode .container {
 }
 
 body.dark-mode .selection select {
+  border: 1px solid #A6A6A6;
+  background-color: black;
+  color: #dedede;
+}
+
+body.dark-mode .selection input {
   border: 1px solid #A6A6A6;
   background-color: black;
   color: #dedede;
