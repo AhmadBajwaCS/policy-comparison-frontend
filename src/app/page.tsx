@@ -132,12 +132,14 @@ export default function ComparePage() {
               setPolicyTypes((prev) => [...prev, data]);
               setPolicyTypeId(data.policy_type_id);
 
+              console.log("Sending")
               console.log("Selected State 1:", selectedState1);
               console.log("Selected State 2:", selectedState2);
               console.log("Custom Policy Mode:", customPolicyMode);
               console.log("Policy Type ID:", policyTypeId);
+              console.log(data.policy_type_id)
 
-              if (!selectedState1 || !selectedState2 || !policyTypeId) {
+              if (!selectedState1 || !selectedState2 || !data.policy_type_id) {
                   alert("Please select two states and either choose or enter a policy.");
                   return;
               }
