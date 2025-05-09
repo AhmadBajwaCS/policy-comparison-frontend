@@ -90,6 +90,12 @@ export default function ComparePage() {
   }, [interactiveMode]);
 
   const handleCompare = async () => {
+    //  reset chatbot
+      setChatMessages([]);      // wipe previous
+      setChatInput("");
+      setChatLoading(false);
+
+
       const selectedState1 = interactiveMode ? mapState1 : state1;
       const selectedState2 = interactiveMode ? mapState2 : state2;
 
