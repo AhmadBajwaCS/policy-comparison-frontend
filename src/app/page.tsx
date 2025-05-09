@@ -104,18 +104,38 @@ export default function ComparePage() {
               return;
           }
 
+          const policyName = customPolicyInput.trim();
+          console.log("Entered Custom Policy:", policyName);
+
           try {
               const res = await fetch("http://localhost:5000/api/policy-types", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ policy_name: customPolicyInput.trim() }),
+                  body: JSON.stringify({ policy_name: policyName }),
               });
 
               const data = await res.json();
-              if (!res.ok) throw new Error(data.error || "Policy creation failed.");
+
+              console.log("res.ok: ", res.ok);
+
+              if (!res.ok) {
+                  if (res.status === 400 && data.error?.toLowerCase().includes("not a valid")) {
+                      alert(data.error); // Validation failure
+                  } else {
+                      alert("Something went wrong while adding your policy: " + (data.error || "Unknown error."));
+                  }
+                  return;
+              }
+
+              //if (!res.ok) throw new Error(data.error || "Policy creation failed.");
 
               setPolicyTypes((prev) => [...prev, data]);
               setPolicyTypeId(data.policy_type_id);
+
+              console.log("Selected State 1:", selectedState1);
+              console.log("Selected State 2:", selectedState2);
+              console.log("Custom Policy Mode:", customPolicyMode);
+              console.log("Policy Type ID:", policyTypeId);
 
               if (!selectedState1 || !selectedState2 || !policyTypeId) {
                   alert("Please select two states and either choose or enter a policy.");
